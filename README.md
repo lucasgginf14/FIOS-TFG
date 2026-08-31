@@ -1,36 +1,166 @@
-# Proyecto FIOS
+# FIOS
 
-El proyecto FIOS es una aplicación web desarrollada como Trabajo Fin de Grado para conectar a músicos, bandas, espacios musicales, reservas y eventos. Esta carpeta contiene una versión final preparada para entrega: incluye el código del backend y del frontend, la configuración de Docker Compose y un volcado SQL con la base de datos inicial.
+FIOS es una aplicación web desarrollada como Trabajo Fin de Grado para centralizar diferentes necesidades relacionadas con la actividad musical, con especial atención a la gestión y reserva de espacios musicales.
 
-La idea es que cualquier persona pueda abrir la carpeta raíz del proyecto, arrancar los contenedores con Docker Desktop y probar la aplicación sin configurar una base de datos manualmente.
+La plataforma permite consultar espacios, gestionar su disponibilidad y realizar reservas, además de incorporar funcionalidades relacionadas con bandas, ofertas de reclutamiento, eventos musicales, mensajería, valoraciones y búsqueda en lenguaje natural.
+
+El proyecto se distribuye preparado para su ejecución mediante Docker Compose, incluyendo el backend, el frontend y una base de datos inicial con información de prueba.
 
 ## Funcionalidades principales
 
-- Registro e inicio de sesión con autenticación JWT.
-- Consulta de espacios musicales, equipamiento, horarios y disponibilidad.
-- Gestión de reservas, mensajes asociados y reseñas.
-- Gestión de bandas, miembros y ofertas para incorporar músicos.
-- Publicación y consulta de eventos musicales.
-- Panel de administración para revisar usuarios, espacios, eventos, reservas y reseñas.
-- Restauración automática de la base de datos inicial desde `database/fios_database.sql`.
+### Espacios musicales
+- Consulta y búsqueda de espacios musicales.
+- Creación y edición de espacios.
+- Gestión de equipamiento.
+- Configuración de horarios habituales.
+- Excepciones de disponibilidad para fechas concretas.
+- Consulta automática de franjas disponibles.
+- Espacios favoritos.
 
-## Tecnologías utilizadas
+### Reservas
+- Creación y seguimiento de reservas.
+- Gestión de reservas recibidas por los propietarios de espacios.
+- Aceptación, rechazo, cancelación y finalización de reservas.
+- Cálculo del precio según horarios y disponibilidad configurada.
+- Mensajería asociada a cada reserva.
+- Valoraciones de espacios y usuarios tras completar una reserva.
 
-- Backend: Java 17, Spring Boot, Spring Security, JPA/Hibernate y Maven.
-- Base de datos: PostgreSQL 16.
-- Frontend: Vue 3, Vite, Bootstrap, Leaflet y npm.
-- Servidor web del frontend: Nginx, con proxy hacia la API.
-- Entorno de ejecución: Docker Compose.
+### Bandas y reclutamiento
+- Creación y gestión de bandas.
+- Gestión de miembros y responsables.
+- Publicación de ofertas de reclutamiento.
+- Búsqueda de músicos según diferentes criterios.
 
-## Requisitos previos
+### Eventos
+- Consulta de eventos musicales.
+- Creación y gestión de eventos internos.
+- Reserva de entradas para eventos internos.
+- Integración con Ticketmaster para incorporar eventos externos.
+- Visualización geográfica de eventos y espacios.
 
-- Docker Desktop instalado y abierto.
-- Puertos locales libres:
-  - `1234` para el frontend.
-  - `8080` para el backend.
-- Java 17 y Node.js solo son necesarios si quieres ejecutar pruebas o compilar fuera de Docker.
+### Búsqueda
+- Búsqueda mediante filtros.
+- Consultas escritas en lenguaje natural.
+- Integración opcional con Google Gemini.
+- Mecanismo local de interpretación cuando Gemini no está configurado.
+- Visualización de resultados sobre mapas.
 
-## Estructura básica
+### Administración
+- Gestión de usuarios y roles.
+- Activación y desactivación de cuentas.
+- Revisión y aprobación de espacios musicales.
+- Supervisión de reservas, valoraciones y ofertas de reclutamiento.
+- Gestión de eventos.
+- Importación de eventos desde Ticketmaster.
+
+## Tecnologías
+
+### Backend
+- Java 17
+- Spring Boot
+- Spring Web MVC
+- Spring Security
+- JWT
+- JPA / Hibernate
+- Maven
+
+### Frontend
+- Vue 3
+- Vite
+- Vue Router
+- Axios
+- Bootstrap 5
+- Leaflet
+- Vue I18n
+
+### Persistencia e infraestructura
+- PostgreSQL 16
+- Docker
+- Docker Compose
+- Nginx
+
+### Servicios externos
+- Ticketmaster Discovery API
+- Google Gemini
+- Nominatim / OpenStreetMap
+
+## Ejecución rápida
+
+La forma recomendada de probar FIOS es mediante Docker Compose.
+
+### Requisitos
+
+- Docker Desktop instalado y en ejecución.
+- Puerto `1234` disponible para el frontend.
+- Puerto `8080` disponible para el backend.
+
+No es necesario instalar Java, Node.js ni PostgreSQL para ejecutar la aplicación mediante Docker.
+
+### 1. Preparar la configuración
+
+Desde la carpeta raíz del proyecto:
+
+#### Windows PowerShell
+
+```powershell
+Copy-Item .env.example .env
+```
+
+#### Linux o macOS
+
+```bash
+cp .env.example .env
+```
+
+El archivo `.env.example` contiene una configuración preparada para ejecutar la aplicación sin necesidad de introducir claves de servicios externos.
+
+### 2. Iniciar FIOS
+
+```bash
+docker compose up --build -d
+```
+
+### 3. Comprobar los contenedores
+
+```bash
+docker compose ps
+```
+
+Los servicios `database`, `server` y `client` deben aparecer en ejecución. El servicio de PostgreSQL debe alcanzar el estado `healthy`.
+
+### 4. Abrir la aplicación
+
+- Aplicación web: `http://localhost:1234`
+- Backend: `http://localhost:8080`
+- API mediante el proxy del frontend: `http://localhost:1234/api`
+
+En el primer arranque, PostgreSQL crea automáticamente el volumen de datos e importa el contenido inicial de:
+
+```text
+database/fios_database.sql
+```
+
+Esta importación solo se realiza cuando se crea por primera vez el volumen de PostgreSQL.
+
+## Datos de demostración
+
+El proyecto incluye datos iniciales preparados para poder recorrer las principales funcionalidades de la aplicación desde el primer arranque.
+
+Las cuentas disponibles y los escenarios recomendados para probar FIOS se encuentran en:
+
+[docs/USUARIOS_PRUEBA.md](docs/USUARIOS_PRUEBA.md)
+
+Las credenciales incluidas son exclusivamente cuentas de demostración y no corresponden a servicios o cuentas reales.
+
+## Documentación
+
+La carpeta `docs/` contiene documentación adicional para ejecutar y probar el proyecto:
+
+- [Guía de ejecución](docs/EJECUCION.md): inicio, parada, reinicio, logs y resolución de problemas.
+- [Configuración](docs/CONFIGURACION.md): variables de entorno y configuración de servicios externos.
+- [Usuarios de prueba](docs/USUARIOS_PRUEBA.md): cuentas preparadas y funcionalidades recomendadas para cada una.
+
+## Estructura del proyecto
 
 ```text
 FIOS_ENTREGA/
@@ -38,145 +168,132 @@ FIOS_ENTREGA/
 ├── compose.yml
 ├── .env.example
 ├── VERSION.txt
+│
 ├── server/
+│   └── Backend desarrollado con Spring Boot
+│
 ├── client/
+│   └── Aplicación web desarrollada con Vue 3
+│
 ├── database/
 │   └── fios_database.sql
+│
 └── docs/
     ├── EJECUCION.md
     ├── CONFIGURACION.md
     └── USUARIOS_PRUEBA.md
 ```
 
-## Inicio rápido con Docker
+## Detener la aplicación
 
-Ejecuta los comandos desde la carpeta raíz del proyecto.
-
-En Windows PowerShell:
-
-```powershell
-# Abre PowerShell en la carpeta raiz del proyecto
-Copy-Item .env.example .env
-docker compose up --build -d
-docker compose ps
-```
-
-En Linux o macOS:
+Para detener los contenedores manteniendo los datos:
 
 ```bash
-cd /ruta/a/FIOS_ENTREGA
-cp .env.example .env
+docker compose down
+```
+
+Para volver a iniciar posteriormente:
+
+```bash
+docker compose up -d
+```
+
+## Restaurar los datos iniciales
+
+Si se quiere eliminar la base de datos local y recuperar exactamente el estado inicial incluido en el proyecto:
+
+```bash
+docker compose down -v
 docker compose up --build -d
-docker compose ps
 ```
 
-En el primer arranque, PostgreSQL crea el volumen de la base de datos e importa automáticamente `database/fios_database.sql`. Esa importación solo se ejecuta cuando el volumen se crea por primera vez.
+> `docker compose down -v` elimina el volumen de PostgreSQL y, por tanto, todos los cambios realizados desde el primer arranque.
 
-## URLs de acceso
+## Logs
 
-- Frontend: `http://localhost:1234`
-- Backend: `http://localhost:8080`
-- API mediante el proxy del frontend: `http://localhost:1234/api`
+Para consultar los logs de todos los servicios:
 
-## Comprobar el estado
-
-```powershell
-docker compose ps
-```
-
-El contenedor `database` debe aparecer como `healthy`. Los contenedores `server` y `client` deben estar en ejecución.
-
-## Consultar registros
-
-Para ver los registros de todos los contenedores:
-
-```powershell
+```bash
 docker compose logs -f
 ```
 
-Para revisar un servicio concreto:
+O de un servicio concreto:
 
-```powershell
+```bash
 docker compose logs -f database
 docker compose logs -f server
 docker compose logs -f client
 ```
 
-## Detener y volver a iniciar
+## Pruebas
 
-Para detener el proyecto sin perder los datos:
+### Backend
 
-```powershell
-docker compose down
-```
-
-Este comando detiene y elimina los contenedores y la red de Docker Compose, pero mantiene los volúmenes. La base de datos permanece guardada.
-
-Para volver a iniciar el proyecto:
-
-```powershell
-docker compose up -d
-```
-
-## Restaurar la base de datos inicial
-
-Usa este procedimiento solo si quieres borrar la base de datos local y volver al estado inicial incluido en la entrega.
-
-```powershell
-docker compose down -v
-docker compose up --build -d
-```
-
-Advertencia: `docker compose down -v` elimina el volumen de PostgreSQL. También elimina los cambios que se hayan realizado después del primer arranque.
-
-## Pruebas del backend
-
-En Windows PowerShell:
+#### Windows PowerShell
 
 ```powershell
 Set-Location .\server
 .\mvnw.cmd test
 ```
 
-En Linux o macOS:
+#### Linux o macOS
 
 ```bash
 cd server
 ./mvnw test
 ```
 
-## Lint y build del frontend
+### Frontend
 
-En Windows PowerShell:
-
-```powershell
-Set-Location .\client
-npm ci
-npm run lint
-npm run build
-```
-
-En Linux o macOS:
+Desde `client/`:
 
 ```bash
-cd client
 npm ci
+npm test
 npm run lint
 npm run build
 ```
 
-## Cuentas de prueba
+## Servicios externos
 
-Las cuentas preparadas para probar el proyecto FIOS están documentadas en [Usuarios de prueba](docs/USUARIOS_PRUEBA.md). La mayoria usa `Fios2026!`; la cuenta completa de Lucas/The Rapants (`lucas@fios.com`) usa `12345678a`.
+### Ticketmaster
 
-## Documentación adicional
+Ticketmaster se utiliza para buscar e importar eventos externos desde el área de administración.
 
-- [Guía de ejecución](docs/EJECUCION.md): arranque, parada, reinicio, registros y resolución de problemas.
-- [Configuración](docs/CONFIGURACION.md): variables de entorno y servicios externos.
-- [Usuarios de prueba](docs/USUARIOS_PRUEBA.md): cuentas disponibles y qué se puede probar con cada una.
+La integración es opcional. Sin una clave configurada, la aplicación continúa funcionando y puede utilizar los eventos externos incluidos en los datos iniciales.
 
-## Servicios externos opcionales
+### Google Gemini
 
-Ticketmaster y Gemini son opcionales y se configuran desde `.env`. Si estan activos y tienen clave valida, el backend los usa para importar eventos externos y para interpretar busquedas en lenguaje natural. Si no hay clave, FIOS sigue funcionando con eventos externos precargados y parser local.
+Gemini puede utilizarse como apoyo para interpretar las consultas escritas en lenguaje natural.
 
-No compartas claves reales ni incluyas el archivo `.env` en el ZIP de entrega. El archivo que debe compartirse es `.env.example`.
+Su configuración también es opcional. Cuando Gemini no está disponible, FIOS utiliza un mecanismo local de interpretación para mantener esta funcionalidad.
+
+Las variables necesarias para estas integraciones están documentadas en:
+
+[docs/CONFIGURACION.md](docs/CONFIGURACION.md)
+
+## Seguridad de la configuración
+
+El repositorio no debe contener claves reales, contraseñas de servicios externos ni otros secretos.
+
+El archivo:
+
+```text
+.env
+```
+
+es local y no debe versionarse.
+
+Como referencia debe utilizarse:
+
+```text
+.env.example
+```
+
+con valores seguros o de ejemplo.
+
+## Autor
+
+Proyecto desarrollado por Lucas García García como Trabajo Fin de Grado del Grado en Enxeñaría Informática de la Universidade da Coruña.
+
+**FIOS: plataforma para a xestión de espazos musicais**
