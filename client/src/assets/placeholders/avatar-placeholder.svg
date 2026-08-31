@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title">
+  <title>Default user avatar</title>
+  <defs>
+    <linearGradient id="avatar-bg" x1="56" y1="40" x2="344" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14351F"/>
+      <stop offset="0.52" stop-color="#101511"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="avatar-stroke" x1="116" y1="76" x2="292" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9FFF1"/>
+      <stop offset="0.42" stop-color="#1ED760"/>
+      <stop offset="1" stop-color="#12853B"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" rx="48" fill="url(#avatar-bg)"/>
+  <circle cx="200" cy="143" r="72" fill="none" stroke="url(#avatar-stroke)" stroke-width="28"/>
+  <path
+    d="M72 344c0-78 57-132 128-132s128 54 128 132"
+    fill="none"
+    stroke="url(#avatar-stroke)"
+    stroke-width="28"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

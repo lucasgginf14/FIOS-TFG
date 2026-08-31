@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    host: ${DB_HOST:localhost}
+    port: ${DB_PORT:5432}
+    database: ${DB_NAME:fios}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:1234}
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+database:
+  loader:
+    enabled: ${DATABASE_LOADER_ENABLED:true}
+
+properties:
+  jwtSecretKey: ${JWT_SECRET_KEY:dev-only-jwt-secret-key-change-me-for-non-local-envs}
+  ticketmaster:
+    enabled: ${TICKETMASTER_ENABLED:true}
+  ai:
+    searchParser:
+      enabled: ${GEMINI_ENABLED:true}

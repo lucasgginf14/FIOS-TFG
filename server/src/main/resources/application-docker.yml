@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    host: ${DB_HOST:database}
+    port: ${DB_PORT:5432}
+    database: ${DB_NAME:fios}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+database:
+  loader:
+    enabled: ${DATABASE_LOADER_ENABLED:false}
+
+properties:
+  jwtSecretKey: ${JWT_SECRET_KEY}
+  rutaImagenes: ${IMAGES_PATH:/app/uploads/images/}

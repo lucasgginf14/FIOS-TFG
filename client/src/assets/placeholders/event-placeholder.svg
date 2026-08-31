@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" fill="none">
+  <defs>
+    <linearGradient id="event-bg" x1="80" y1="40" x2="760" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#151515"/>
+      <stop offset="1" stop-color="#090909"/>
+    </linearGradient>
+    <radialGradient id="event-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(186 80) rotate(50.445) scale(324.602 291.863)">
+      <stop stop-color="#1DB954" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#1DB954" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="520" rx="40" fill="url(#event-bg)"/>
+  <rect width="800" height="520" rx="40" fill="url(#event-glow)"/>
+  <rect x="176" y="128" width="448" height="248" rx="28" fill="#121212" stroke="#2B2B2B" stroke-width="10"/>
+  <rect x="230" y="184" width="340" height="28" rx="14" fill="#1DB954" fill-opacity=".9"/>
+  <rect x="230" y="236" width="206" height="24" rx="12" fill="#2A2A2A"/>
+  <rect x="230" y="282" width="240" height="24" rx="12" fill="#2A2A2A"/>
+  <circle cx="264" cy="96" r="20" fill="#1DB954"/>
+  <circle cx="536" cy="96" r="20" fill="#1DB954"/>
+  <text x="400" y="454" fill="#DFFFE9" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle">FIOS EVENT</text>
+</svg>

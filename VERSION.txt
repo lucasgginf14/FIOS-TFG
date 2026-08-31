@@ -1,0 +1,6 @@
+Proyecto: FIOS
+Version: 1.0.0
+Autor: Lucas Garcia Garcia
+Tipo: Version final para entrega del Trabajo Fin de Grado
+Fecha de preparacion: 2026-07-27
+Commit Git fuente: 70497cc164fd8b03e0f147924cac7644d41af188

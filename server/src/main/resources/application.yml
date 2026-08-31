@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: fios-rest
+
+  datasource:
+    host: ${DB_HOST:localhost}
+    port: ${DB_PORT:5432}
+    database: ${DB_NAME:fios}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+database:
+  loader:
+    enabled: ${DATABASE_LOADER_ENABLED:false}
+
+properties:
+  clientHost: ${CLIENT_HOST:http://localhost:1234}
+  jwtSecretKey: ${JWT_SECRET_KEY}
+  jwtValidity: 7200
+  rutaImagenes: ./uploads/images/
+  geocoding:
+    baseUrl: https://nominatim.openstreetmap.org
+    userAgent: FIOS-REST/1.0 (TFG geocoding integration)
+    timeout: 3000
+    countryCodes: es
+    limit: 5
+  ticketmaster:
+    enabled: ${TICKETMASTER_ENABLED:false}
+    baseUrl: https://app.ticketmaster.com/discovery/v2
+    apiKey: ${TICKETMASTER_API_KEY:}
+    timeout: 3000
+    defaultCountryCode: ES
+    defaultSize: 10
+  ai:
+    searchParser:
+      enabled: ${GEMINI_ENABLED:false}
+      provider: GEMINI
+      baseUrl: https://generativelanguage.googleapis.com/v1beta
+      apiKey: ${GEMINI_API_KEY:}
+      model: gemini-2.5-flash
+      timeout: 10000
+      maxOutputTokens: 512
+      temperature: 0

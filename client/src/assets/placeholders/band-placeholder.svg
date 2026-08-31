@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" fill="none">
+  <defs>
+    <linearGradient id="band-bg" x1="90" y1="36" x2="742" y2="484" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#121A14"/>
+      <stop offset="1" stop-color="#0A0A0A"/>
+    </linearGradient>
+    <radialGradient id="band-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(610 106) rotate(126.215) scale(300.449 270.584)">
+      <stop stop-color="#1DB954" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#1DB954" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="520" rx="40" fill="url(#band-bg)"/>
+  <rect width="800" height="520" rx="40" fill="url(#band-glow)"/>
+  <circle cx="272" cy="244" r="76" fill="#1DB954" fill-opacity=".92"/>
+  <circle cx="400" cy="204" r="62" fill="#1F1F1F" stroke="#3A3A3A" stroke-width="12"/>
+  <circle cx="524" cy="244" r="76" fill="#1DB954" fill-opacity=".58"/>
+  <path d="M272 244h252" stroke="#DFFFE9" stroke-width="16" stroke-linecap="round"/>
+  <text x="400" y="454" fill="#DFFFE9" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle">FIOS BAND</text>
+</svg>
