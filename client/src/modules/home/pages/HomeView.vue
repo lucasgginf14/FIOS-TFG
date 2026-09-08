@@ -466,16 +466,10 @@ import bandPlaceholder from "@/assets/placeholders/band-placeholder.svg";
 import eventPlaceholder from "@/assets/placeholders/event-placeholder.svg";
 import spacePlaceholder from "@/assets/placeholders/space-placeholder.svg";
 import { getStore } from "@/common/store";
-import BandRecruitmentRepository from "@/repositories/BandRecruitmentRepository";
-import EventRepository from "@/repositories/EventRepository";
+import HomeRepository from "@/repositories/HomeRepository";
 import MessageRepository from "@/repositories/MessageRepository";
 import ReservationSessionRepository from "@/repositories/ReservationSessionRepository";
 import SearchRepository from "@/repositories/SearchRepository";
-import {
-  selectFeaturedEvents,
-  selectFeaturedRecruitments,
-  selectFeaturedSpaces
-} from "../homeFeaturedScoring";
 
 const router = useRouter();
 const store = getStore();
@@ -492,9 +486,6 @@ const personalDataLoading = ref(false);
 const featuredSpaces = ref([]);
 const featuredEvents = ref([]);
 const featuredRecruitments = ref([]);
-const publicSpaces = ref([]);
-const publicEvents = ref([]);
-const publicRecruitments = ref([]);
 const latestSearches = ref([]);
 const myReservations = ref([]);
 const recentMessages = ref([]);
@@ -559,60 +550,26 @@ async function loadPublicData() {
   publicDataLoading.value = true;
   resetPublicDataErrors();
 
-  const [spacesResult, eventsResult, recruitmentsResult] = await Promise.allSettled([
-    loadFeaturedSpaces(),
-    loadFeaturedEvents(),
-    loadRecruitments()
-  ]);
-
-  if (spacesResult.status === "rejected") {
+  try {
+    const featured = await HomeRepository.getFeatured();
+    featuredSpaces.value = (featured?.featuredSpaces ?? []).map((space) => ({
+      ...space,
+      rating: Number(space.rating ?? 0),
+      reviewsCount: Number(space.reviewsCount ?? 0),
+      priceLabel: formatEstimatedPriceLabel(space.estimatedPrice)
+    }));
+    featuredEvents.value = featured?.featuredEvents ?? [];
+    featuredRecruitments.value = featured?.featuredRecruitments ?? [];
+  } catch {
     featuredSpaces.value = [];
-    publicDataErrors.spaces = true;
-  }
-
-  if (eventsResult.status === "rejected") {
     featuredEvents.value = [];
-    publicDataErrors.events = true;
-  }
-
-  if (recruitmentsResult.status === "rejected") {
     featuredRecruitments.value = [];
+    publicDataErrors.spaces = true;
+    publicDataErrors.events = true;
     publicDataErrors.recruitments = true;
   }
 
   publicDataLoading.value = false;
-}
-
-async function loadFeaturedSpaces() {
-  const result = await SearchRepository.search({});
-  const enrichedSpaces = (result?.spaces ?? []).map((space) => ({
-    ...space,
-    rating: Number(space.rating ?? 0),
-    reviewsCount: Number(space.reviewsCount ?? 0),
-    priceLabel: formatEstimatedPriceLabel(space.estimatedPrice)
-  }));
-
-  publicSpaces.value = enrichedSpaces;
-  featuredSpaces.value = selectFeaturedSpaces(enrichedSpaces);
-}
-
-async function loadFeaturedEvents() {
-  let events = [];
-
-  try {
-    events = await EventRepository.getUpcoming();
-  } catch {
-    events = await EventRepository.getAll();
-  }
-
-  publicEvents.value = events ?? [];
-  featuredEvents.value = selectFeaturedEvents(events);
-}
-
-async function loadRecruitments() {
-  const recruitments = await BandRecruitmentRepository.getAll();
-  publicRecruitments.value = recruitments ?? [];
-  featuredRecruitments.value = selectFeaturedRecruitments(recruitments);
 }
 
 async function loadPersonalData() {

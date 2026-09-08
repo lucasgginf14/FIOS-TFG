@@ -43,7 +43,7 @@ function isPublicRequest(config) {
     return false;
   }
 
-  return /^(images|instruments|equipments|band-recruitments|musical-spaces|search|events|bands)(\/|$)/.test(endpoint);
+  return /^(home|images|instruments|equipments|band-recruitments|musical-spaces|search|events|bands)(\/|$)/.test(endpoint);
 }
 
 const onResponseFailure = (error) => {

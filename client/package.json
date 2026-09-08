@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --port 1234",
     "build": "vite build",
-    "test": "node --test src/modules/home/homeFeaturedScoring.test.js src/modules/events/eventUtils.test.js src/modules/musical-spaces/coordinateParser.test.js src/modules/musical-spaces/spaceDetailUtils.test.js src/modules/musical-spaces/spaceAvailabilityManageUtils.test.js src/modules/bands/bandMemberUtils.test.js src/modules/profile/profileInstrumentUtils.test.js src/modules/reservations/reservationUtils.test.js src/modules/search/searchMatching.test.js",
+    "test": "node --test src/modules/events/eventUtils.test.js src/modules/musical-spaces/coordinateParser.test.js src/modules/musical-spaces/spaceDetailUtils.test.js src/modules/musical-spaces/spaceAvailabilityManageUtils.test.js src/modules/bands/bandMemberUtils.test.js src/modules/profile/profileInstrumentUtils.test.js src/modules/reservations/reservationUtils.test.js src/modules/search/searchMatching.test.js",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -63,6 +63,7 @@ public class SecurityConfiguration {
         .requestMatchers(HttpMethod.POST, "/api/account/register").permitAll()
         .requestMatchers(HttpMethod.POST, "/api/account/login").permitAll()
         .requestMatchers("/api/account/**").authenticated()
+        .requestMatchers(HttpMethod.GET, "/api/home/**").permitAll()
         .requestMatchers(HttpMethod.GET, "/api/images/**").permitAll()
         .requestMatchers("/api/images/**").authenticated()
         .requestMatchers(HttpMethod.GET, "/api/instruments/**").permitAll()
