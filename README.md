@@ -294,4 +294,4 @@ con valores seguros o de ejemplo.
 
 ## Autor
 
-Proyecto desarrollado por Lucas García García como Trabajo Fin de Grado del Grado en Enxeñaría Informática
+Proyecto desarrollado por Lucas García como Trabajo Fin de Grado del Grado en Enxeñaría Informática
