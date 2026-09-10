@@ -49,5 +49,5 @@ properties:
       apiKey: ${GEMINI_API_KEY:}
       model: gemini-2.5-flash
       timeout: 10000
-      maxOutputTokens: 512
+      maxOutputTokens: 2048
       temperature: 0

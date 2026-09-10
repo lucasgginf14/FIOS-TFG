@@ -219,7 +219,7 @@ public class Properties {
     private String apiKey;
     private String model = "gemini-2.5-flash";
     private int timeout = 3000;
-    private int maxOutputTokens = 512;
+    private int maxOutputTokens = 2048;
     private double temperature = 0d;
 
     public boolean isEnabled() {
