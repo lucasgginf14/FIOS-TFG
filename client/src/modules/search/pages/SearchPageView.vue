@@ -1080,7 +1080,6 @@ function mergeDetectedAndStructuredCriteria(
 
   return normalizeCriteriaShape({
     ...detected,
-    ...structured,
     city: hasExplicitLocation ? structured.city : detected.city,
     province: hasExplicitLocation ? structured.province : detected.province,
     autonomousCommunity: hasExplicitLocation
@@ -1089,7 +1088,14 @@ function mergeDetectedAndStructuredCriteria(
     date: hasExplicitDate ? structured.date : detected.date,
     dateFrom: hasExplicitDate ? structured.dateFrom : detected.dateFrom,
     dateTo: hasExplicitDate ? structured.dateTo : detected.dateTo,
-    datePreset: activeFiltersState.datePreset || ""
+    datePreset: activeFiltersState.datePreset || "",
+    startTime: structured.startTime || detected.startTime,
+    endTime: structured.endTime || detected.endTime,
+    spaceType: structured.spaceType || detected.spaceType,
+    peopleCount: structured.peopleCount > 0 ? structured.peopleCount : detected.peopleCount,
+    musicalGenre: structured.musicalGenre || detected.musicalGenre,
+    maxBudget: structured.maxBudget > 0 ? structured.maxBudget : detected.maxBudget,
+    intent: structured.intent || detected.intent
   });
 }
 
